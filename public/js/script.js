@@ -7,7 +7,7 @@ let access_token;
 let faixasRecomendadas;
 const client_id = "c3d8138bf17f42ff98b1acedab790802";
 const client_secret = "e536212b3c194076848ede08b8c03d5e";
-const redirect_uri = "https://phmb444.github.io/logado.html"; 
+const redirect_uri = "https://pedroohaubert.github.io/logado.html"; 
 const authorization_url = "https://accounts.spotify.com/authorize";
 const token_url = "https://accounts.spotify.com/api/token";
 const top_artists_url = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10";
