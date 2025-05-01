@@ -159,19 +159,17 @@ let criarArtistas2 =(data)=>{
             ? x.genres.slice(0, 2).join(', ') 
             : ""; // Limita a 2 gêneros
         
+        // Estrutura HTML atualizada para alinhar texto
         return`
-        <div class="items">
-          <img src="${x.images[0].url}" alt="${x.name}">
-          <div class="item-info">
-            <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+        <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+          <img src="${x.images[0]?.url || 'https://via.placeholder.com/150?text=Artista'}" alt="${x.name}">
+          <span class="numero">${y}</span>
+          <div class="item-text">
+            <p class="track-name">${x.name}</p>
             <p class="artist-name">${genres}</p>
           </div>
         </div>`
     }).join("");
-    
-    // Exibe o título
-    const tituloSecao = document.querySelector('.titulo-secao');
-    if (tituloSecao) tituloSecao.style.display = 'block';
     
     return;
 }
@@ -197,7 +195,6 @@ let criarFaixas2 =(data)=>{
     
     console.log("items criados");
     console.log(data);
-    console.log(access_token);
     
     // Adiciona os itens abaixo do título
     box.innerHTML += data.items.map((x)=>{
@@ -206,19 +203,17 @@ let criarFaixas2 =(data)=>{
         // Extrai o nome do artista
         const artistName = x.artists && x.artists.length > 0 ? x.artists[0].name : "";
         
+        // Estrutura HTML atualizada
         return`
-        <div class="items">
-          <img src="${x.album.images[0].url}" alt="${x.name}">
-          <div class="item-info">
-            <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+        <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+          <img src="${x.album.images[0]?.url || 'https://via.placeholder.com/150?text=Faixa'}" alt="${x.name}">
+          <span class="numero">${y}</span>
+          <div class="item-text">
+            <p class="track-name">${x.name}</p>
             <p class="artist-name">${artistName}</p>
           </div>
         </div>`
     }).join("");
-    
-    // Exibe o título
-    const tituloSecao = document.querySelector('.titulo-secao');
-    if (tituloSecao) tituloSecao.style.display = 'block';
     
     return;
 }
@@ -261,19 +256,17 @@ let criarRecomendacoes2 =(data)=>{
       // Extrai o nome do artista
       const artistName = x.artists && x.artists.length > 0 ? x.artists[0].name : "";
       
+      // Estrutura HTML atualizada
       return`
-      <div class="items">
-        <img src="${x.album.images[0].url}" alt="${x.name}">
-        <div class="item-info">
-          <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+      <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+        <img src="${x.album.images[0]?.url || 'https://via.placeholder.com/150?text=Recom'}" alt="${x.name}">
+        <span class="numero">${y}</span>
+        <div class="item-text">
+          <p class="track-name">${x.name}</p>
           <p class="artist-name">${artistName}</p>
         </div>
       </div>`
   }).join("");
-  
-  // Exibe o título
-  const tituloSecao = document.querySelector('.titulo-secao');
-  if (tituloSecao) tituloSecao.style.display = 'block';
   
   return;
 }
