@@ -1,5 +1,3 @@
-
-
 let y = 0
 let listaFaixas;
 let listaArtistas;
@@ -7,7 +5,8 @@ let access_token;
 let faixasRecomendadas;
 const client_id = "c3d8138bf17f42ff98b1acedab790802";
 const client_secret = "e536212b3c194076848ede08b8c03d5e";
-const redirect_uri = "https://pedroohaubert.github.io/logado.html"; 
+//const redirect_uri = "https://pedroohaubert.github.io/logado.html"; 
+const redirect_uri = "http://localhost:5500/logado.html";
 const authorization_url = "https://accounts.spotify.com/authorize";
 const token_url = "https://accounts.spotify.com/api/token";
 const top_artists_url = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10";
@@ -134,31 +133,47 @@ let criarArtistas2 =(data)=>{
     let botaoRecomendacoes = document.getElementById("botaoRecomendacoes")
     let menus = document.getElementById("menus")
 
-    menus.style.height = "6h"
-    botaoArtistas.style.height = "6vh"
-    botaoArtistas.style.backgroundColor = "rgb(150, 150, 150)"
-    botaoFaixas.style.height = "5vh"
-    botaoFaixas.style.backgroundColor = "rgb(186, 186, 186)"
-    botaoRecomendacoes.style.height = "5vh"
-    botaoRecomendacoes.style.backgroundColor = "rgb(186, 186, 186)"
+    // Remove a classe 'ativo' de todos e adiciona ao botão clicado
+    botaoFaixas.classList.remove('ativo');
+    botaoArtistas.classList.add('ativo');
+    botaoRecomendacoes.classList.remove('ativo');
 
     listaArtistas = []
     y = 0
     let box = document.getElementById("box")
     box.innerHTML = ""
+    
+    // Adiciona título à seção
+    box.innerHTML = `<div class="titulo-secao">Seus Artistas Mais Ouvidos</div>`;
+    
     console.log("items criados");
-    console.log(box)
-    console.log(listaFaixas);
-    return (box.innerHTML = data.items.map((x)=>{
+    console.log(data);
+    
+    // Adiciona os itens abaixo do título
+    box.innerHTML += data.items.map((x)=>{
         listaArtistas[y] = x.id;
         y++;
+        
+        // Obtém gêneros (se disponíveis)
+        const genres = x.genres && x.genres.length > 0 
+            ? x.genres.slice(0, 2).join(', ') 
+            : ""; // Limita a 2 gêneros
+        
         return`
         <div class="items">
-        <img src="${x.images[0].url}" alt="">
-        <p>${y}. ${x.name}</p>
+          <img src="${x.images[0].url}" alt="${x.name}">
+          <div class="item-info">
+            <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+            <p class="artist-name">${genres}</p>
+          </div>
         </div>`
-    }).join("")
-    )
+    }).join("");
+    
+    // Exibe o título
+    const tituloSecao = document.querySelector('.titulo-secao');
+    if (tituloSecao) tituloSecao.style.display = 'block';
+    
+    return;
 }
 
 let criarFaixas2 =(data)=>{
@@ -167,32 +182,45 @@ let criarFaixas2 =(data)=>{
     let botaoRecomendacoes = document.getElementById("botaoRecomendacoes")
     let menus = document.getElementById("menus")
 
-    menus.style.height = "6h"
-    botaoFaixas.style.height = "6vh"
-    botaoFaixas.style.backgroundColor = "rgb(150, 150, 150)"
-    botaoArtistas.style.height = "5vh"
-    botaoArtistas.style.backgroundColor = "rgb(186, 186, 186)"
-    botaoRecomendacoes.style.height = "5vh"
-    botaoRecomendacoes.style.backgroundColor = "rgb(186, 186, 186)"
+    // Remove a classe 'ativo' de todos e adiciona ao botão clicado
+    botaoFaixas.classList.add('ativo');
+    botaoArtistas.classList.remove('ativo');
+    botaoRecomendacoes.classList.remove('ativo');
     
     listaFaixas = []
     y = 0
     let box = document.getElementById("box")
     box.innerHTML = ""
+    
+    // Adiciona título à seção
+    box.innerHTML = `<div class="titulo-secao">Suas Faixas Mais Ouvidas</div>`;
+    
     console.log("items criados");
-    console.log(box)
+    console.log(data);
     console.log(access_token);
-    console.log(listaFaixas);
-    return (box.innerHTML = data.items.map((x)=>{
+    
+    // Adiciona os itens abaixo do título
+    box.innerHTML += data.items.map((x)=>{
         listaFaixas[y] = x.id;
         y++;
+        // Extrai o nome do artista
+        const artistName = x.artists && x.artists.length > 0 ? x.artists[0].name : "";
+        
         return`
         <div class="items">
-        <img src="${x.album.images[0].url}" alt="">
-        <p>${y}. ${x.name}</p>
+          <img src="${x.album.images[0].url}" alt="${x.name}">
+          <div class="item-info">
+            <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+            <p class="artist-name">${artistName}</p>
+          </div>
         </div>`
-    }).join("")
-    )
+    }).join("");
+    
+    // Exibe o título
+    const tituloSecao = document.querySelector('.titulo-secao');
+    if (tituloSecao) tituloSecao.style.display = 'block';
+    
+    return;
 }
 let selecionarArtistas = () =>{
     getTopArtists(access_token);
@@ -210,29 +238,42 @@ let criarRecomendacoes2 =(data)=>{
   let botaoRecomendacoes = document.getElementById("botaoRecomendacoes")
   let menus = document.getElementById("menus")
 
-  menus.style.height = "6h"
-  botaoRecomendacoes.style.height = "6vh"
-  botaoRecomendacoes.style.backgroundColor = "rgb(150, 150, 150)"
-  botaoArtistas.style.height = "5vh"
-  botaoArtistas.style.backgroundColor = "rgb(186, 186, 186)"
-  botaoFaixas.style.height = "5vh"
-  botaoFaixas.style.backgroundColor = "rgb(186, 186, 186)"
+  // Remove a classe 'ativo' de todos e adiciona ao botão clicado
+  botaoFaixas.classList.remove('ativo');
+  botaoArtistas.classList.remove('ativo');
+  botaoRecomendacoes.classList.add('ativo');
   
   faixasRecomendadas = []
   y = 0
   let box = document.getElementById("box")
   box.innerHTML = ""
+  
+  // Adiciona título à seção
+  box.innerHTML = `<div class="titulo-secao">Recomendações Para Você</div>`;
+  
   console.log("items criados");
-  console.log(box)
-  console.log(access_token);
-  console.log(faixasRecomendadas);
-  return (box.innerHTML = data.tracks.map((x)=>{
+  console.log(data);
+  
+  // Adiciona os itens abaixo do título
+  box.innerHTML += data.tracks.map((x)=>{
       faixasRecomendadas[y] = x.id;
       y++;
+      // Extrai o nome do artista
+      const artistName = x.artists && x.artists.length > 0 ? x.artists[0].name : "";
+      
       return`
       <div class="items">
-      <img src="${x.album.images[0].url}" alt="">
-      <p>${y}. ${x.name}</p>
+        <img src="${x.album.images[0].url}" alt="${x.name}">
+        <div class="item-info">
+          <p class="track-name"><span class="numero">${y}</span> ${x.name}</p>
+          <p class="artist-name">${artistName}</p>
+        </div>
       </div>`
-  }).join("")
-  )}
+  }).join("");
+  
+  // Exibe o título
+  const tituloSecao = document.querySelector('.titulo-secao');
+  if (tituloSecao) tituloSecao.style.display = 'block';
+  
+  return;
+}

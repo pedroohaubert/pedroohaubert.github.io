@@ -121,74 +121,199 @@ main button:hover{
     margin: 0 auto;
     box-shadow: 2px 3px 20px rgba(128, 128, 128, 0.649);
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 20% 20% 20% 20% 20% 20%;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: minmax(80px, auto);
     box-sizing: border-box;
-    padding: 20px;
-    grid-column-gap: 10px;
+    padding: 20px 25px;
+    gap: 15px;
     font-weight: 700;
-     overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgb(252, 250, 248);
+    border-radius: 10px;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
 }
+
+/* Título da seção principal */
+.titulo-secao {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(252, 250, 248, 0.98);
+    padding: 8px 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    display: none;
+    border-radius: 6px;
+}
+
 .menus{
     width: 90vw;
     margin: 0 auto;
     height: 6vh;
     margin-top: 3vh;
+    margin-bottom: 2vh;
     display: flex;
     align-items: end;
     overflow: hidden;
+    position: relative;
 }
 .menu{
-    min-width: 70px;
-    height: 6vh;
-    background-color: rgb(186, 186, 186);
+    min-width: 90px;
+    height: 5vh;
+    background-color: rgb(220, 220, 220);
     border-top-left-radius: 10px;
-    border-top-right-radius: 20px;
-    font-size: 10px;
-    padding: 8px;
+    border-top-right-radius: 10px;
+    font-size: 13px;
+    padding: 10px 15px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     font-weight: 700;
     overflow: hidden;
+    margin-right: 5px;
+    cursor: pointer;
+    border-bottom: none;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.menu:hover {
+    background-color: rgb(230, 230, 230);
+    transform: translateY(-2px);
+    box-shadow: 0px -3px 8px rgba(0, 0, 0, 0.15);
+}
+.menu.ativo {
+    height: 6vh;
+    background-color: rgb(252, 250, 248);
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
 }
 .menu img{
     height: 20px;
-    margin-left: 8px;
+    margin-left: 10px;
 }
 .items{
    display: flex;
    align-items: center;
-   font-size: 12px;
+   font-size: 14px;
+   background-color: white;
+   padding: 12px 15px;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+   transition: all 0.3s ease;
+}
+.items:hover {
+   transform: translateY(-3px);
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 .items img{
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+.item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 75px); /* Desconta o espaço da imagem e margin */
+}
+.track-name {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+}
+.artist-name {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+.items p {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
 }
 
+/* Número em destaque */
+.items p .numero {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 25px;
+    height: 25px;
+    background-color: #1DB954; /* Verde do Spotify */
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+/* Adiciona Flexbox para o container */
+.lado_a_lado {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha se não houver espaço */
+    justify-content: space-around; /* Espaça os itens */
+    align-items: flex-start; /* Alinha os itens no topo */
+    width: 90vw; /* Mantém a largura */
+    margin: 2vh auto 0; /* Mantém a margem */
+    gap: 20px; /* Adiciona um espaço entre as seções */
+}
 
 @media only screen and (min-width: 500px) {
+    .titulo-secao {
+        font-size: 20px;
+        padding: 8px 0;
+    }
+    .items p .numero {
+        min-width: 28px;
+        height: 28px;
+    }
     .items{
-        font-size: 1.2em;
-        font-weight: 700;
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+    .track-name {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+    .artist-name {
+        font-size: 14px;
     }
     .items img{
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+    }
+    .items p {
+        font-size: 16px;
     }
     .main2{
-        width: 75vw;
-        padding: 20px 40px;
-        overflow: scroll;
-        grid-gap: 3vw;
-        min-width: 490px;
-        max-width: 75vw;
-        grid-template-rows: 18%;
-        grid-row-gap: 5px;
-        overflow-x: hidden;
-        grid-column-gap: 10px;
+        width: 85vw;
+        max-width: 1200px;
+        padding: 25px;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-auto-rows: minmax(90px, auto);
     }
     .menus{
         min-width: 490px;
@@ -316,17 +441,74 @@ main button:hover{
         align-items: center;
         font-weight: 700;
     }
-    
-  }
-
-  @media only screen and (min-width: 1200px) {
-    .items{
-        font-size: 1.4em;
+    /* Ajusta a largura das seções em telas médias */
+    .Aplicativo, .tecnologias {
+        flex: 1 1 45%; /* Permite que cresçam/encolham, base de 45% da largura */
+        min-width: 300px; /* Largura mínima para evitar espremer demais */
     }
-    main{
-        height: 80vh;
-        padding-right: 50%;
-        padding-left: 4%;
+    h1{
+        font-size: 1.7em
+    }
+    /* Estilos existentes para .lado_a_lado em telas grandes - podem precisar de ajuste */
+    .lado_a_lado{
+        display: flex; /* Mantém flex */
+        width: 90%;
+        margin: 0 auto;
+        height: 30vh;
+        align-items: center;
+        justify-content: space-between; /* Ajustar se necessário */
+        gap: 40px; /* Espaçamento maior */
+    }
+    .Aplicativo{
+        height: 80%;
+        width: 50%; /* Ajusta a largura */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center; /* Centraliza o texto */
+    }
+    .Aplicativo h3 {
+        font-size: 1.8em; /* Ajustar tamanho */
+    }
+    .tecnologias{
+        height: 80%;
+        width: 40%; /* Ajusta a largura */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: none; /* Remove a transformação */
+    }
+    .tec{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 120px; /* Aumenta a largura */
+        font-weight: 700;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .items{
+        font-size: 18px;
+        padding: 18px 25px;
+    }
+    .track-name {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .artist-name {
+        font-size: 15px;
+    }
+    .items img{
+        width: 80px;
+        height: 80px;
+    }
+    .main2{
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        grid-auto-rows: minmax(100px, auto);
+        gap: 20px;
     }
     h1{
         font-size: 3.5em;
@@ -365,7 +547,10 @@ main button:hover{
 }
 @media (min-width: 700px) and (max-width: 1200px) { 
     .items{
-        font-size: 1.3em;
+        font-size: 17px;
+    }
+    .items p {
+        font-size: 17px;
     }
     h1{
         font-size: 3.5em;
@@ -412,19 +597,57 @@ main button:hover{
         font-weight: 700;
     }
 }
+@media only screen and (max-width: 767px) {
+    .lado_a_lado {
+        flex-direction: column; /* Empilha as seções */
+        align-items: center; /* Centraliza as seções empilhadas */
+        width: 90vw;
+        margin-top: 2vh;
+    }
+    .Aplicativo, .tecnologias {
+        width: 100%; /* Ocupa toda a largura */
+        margin-bottom: 20px; /* Espaço entre seções empilhadas */
+        height: auto; /* Altura automática */
+        transform: none; /* Reseta transformações */
+        flex: none; /* Reseta flex properties */
+    }
+    .tecnologias {
+        margin-bottom: 0; /* Remove margem inferior do último item */
+    }
+    .Aplicativo h3{
+        font-size: 1.5em; /* Ajusta o tamanho da fonte se necessário */
+    }
+    .tecnologias h4{
+         font-size: 1.3em; /* Ajusta o tamanho da fonte se necessário */
+    }
+     .boxtec{
+        width: 100%; /* Usa a largura total */
+        justify-content: space-around;
+    }
+    .tec {
+        width: 80px; /* Ajusta a largura dos ícones de tecnologia */
+    }
+}
 @media only screen and (max-width: 318px){
     .items{
-        font-size: 10px;
+        font-size: 12px;
+        padding: 10px;
+    }
+    .items p {
+        font-size: 12px;
     }
     .items img{
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
     }
     .menu{
-        font-size: 10px;
+        font-size: 9px;
+        padding: 6px 8px;
+        min-width: 60px;
     }
     .menu img{
-        height: 15px;
-        margin-left: 4px;
+        height: 16px;
+        margin-left: 5px;
     }
 }
