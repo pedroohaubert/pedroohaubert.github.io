@@ -14,15 +14,23 @@
   <style type="text/tailwindcss">
     /* Mantém a coluna fixa no topo, mas sem grid-span pois main não é mais grid */
     .titulo-secao { @apply sticky top-0 bg-white text-center font-bold text-xl py-4 mb-6 text-gray-900 z-10; }
-    /* Cards com padding maior, largura total (dentro do max-w), borda suave e altura mínima */
-    .items { @apply flex items-center bg-white shadow-md rounded-lg p-6 transition hover:shadow-lg space-x-4 w-full border border-gray-200 min-h-[128px]; }
+    /* Cards com padding maior, largura controlada pelo container 'main', borda suave e altura mínima */
+    .items { @apply flex items-center bg-white shadow-md rounded-lg p-6 transition hover:shadow-lg space-x-4 border border-gray-200 min-h-[128px] w-[300px] mx-auto; }
+    
+    /* Media queries para responsividade dos cards */
+    @media (min-width: 640px) {
+      .items { @apply w-[400px]; }
+    }
+    @media (min-width: 1024px) {
+      .items { @apply w-[500px]; }
+    }
     .items img { @apply h-16 w-16 object-cover rounded-md flex-shrink-0; }
     .numero { @apply inline-flex items-center justify-center h-6 w-6 bg-spotify text-white font-bold rounded-full mr-2 text-sm flex-shrink-0; }
     /* Container para nome da faixa e artista - sempre coluna */
     .item-text { @apply flex-grow flex flex-col min-w-0; }
-    .track-name { @apply font-semibold text-gray-900 truncate; }
+    .track-name { @apply font-semibold text-gray-900 truncate overflow-hidden; }
     /* Nome/Gênero do artista sempre abaixo com margem superior */
-    .artist-name { @apply text-gray-500 text-sm mt-1 truncate; }
+    .artist-name { @apply text-gray-500 text-sm mt-1 truncate overflow-hidden; }
     #menus { @apply w-full bg-white border-b border-gray-200; }
     #menus button { @apply py-3 px-4 text-sm font-medium text-gray-700 hover:text-gray-900 transition; }
     #menus button.ativo { @apply border-b-2 border-spotify text-gray-900; }
@@ -61,7 +69,6 @@
     <div class="max-w-lg mx-auto px-6 flex justify-center space-x-4">
       <button id="botaoFaixas" onclick="previewFaixas()">Faixas</button>
       <button id="botaoArtistas" onclick="previewArtistas()">Artistas</button>
-      <button id="botaoRecomendacoes" onclick="previewRecomendacoes()">Recomendações</button>
     </div>
   </nav>
   <main id="box">
@@ -95,19 +102,7 @@
       { id:'t9', name:'Faixa Mock 9', album:{images:[{url:'https://via.placeholder.com/150?text=T9'}]}, artists:[{name:'Artista Mock 9'}] },
       { id:'t10', name:'Faixa Mock 10', album:{images:[{url:'https://via.placeholder.com/150?text=T10'}]}, artists:[{name:'Artista Mock 10'}] },
     ]};
-    // Dados mock para recomendações
-    const mockRecsData = { tracks: [
-      { id:'r1', name:'Recomendação Mock 1', album:{images:[{url:'https://via.placeholder.com/150?text=R1'}]}, artists:[{name:'Artista Recomendado 1'}] },
-      { id:'r2', name:'Recom Mock 2', album:{images:[{url:'https://via.placeholder.com/150?text=R2'}]}, artists:[{name:'Artista Rec 2'}] },
-      { id:'r3', name:'Recom Mock 3', album:{images:[{url:'https://via.placeholder.com/150?text=R3'}]}, artists:[{name:'Artista Rec 3'}] },
-      { id:'r4', name:'Recom Mock 4', album:{images:[{url:'https://via.placeholder.com/150?text=R4'}]}, artists:[{name:'Artista Rec 4'}] },
-      { id:'r5', name:'Recom Mock 5', album:{images:[{url:'https://via.placeholder.com/150?text=R5'}]}, artists:[{name:'Artista Rec 5'}] },
-      { id:'r6', name:'Recom Mock 6', album:{images:[{url:'https://via.placeholder.com/150?text=R6'}]}, artists:[{name:'Artista Rec 6'}] },
-      { id:'r7', name:'Recom Mock 7', album:{images:[{url:'https://via.placeholder.com/150?text=R7'}]}, artists:[{name:'Artista Rec 7'}] },
-      { id:'r8', name:'Recom Mock 8', album:{images:[{url:'https://via.placeholder.com/150?text=R8'}]}, artists:[{name:'Artista Rec 8'}] },
-      { id:'r9', name:'Recom Mock 9', album:{images:[{url:'https://via.placeholder.com/150?text=R9'}]}, artists:[{name:'Artista Rec 9'}] },
-      { id:'r10', name:'Recom Mock 10', album:{images:[{url:'https://via.placeholder.com/150?text=R10'}]}, artists:[{name:'Artista Rec 10'}] },
-    ]};
+
 
     // Funções de preview - Adaptadas para usar as funções JS principais
     function previewFaixas() {
@@ -120,13 +115,9 @@
       document.getElementById('botaoArtistas').classList.add('ativo');
       criarArtistas2(mockArtistsData); // Chama a função original com mock data
     }
-    function previewRecomendacoes() {
-      document.querySelectorAll('#menus button').forEach(b => b.classList.remove('ativo'));
-      document.getElementById('botaoRecomendacoes').classList.add('ativo');
-      criarRecomendacoes2(mockRecsData); // Chama a função original com mock data
-    }
+
     // Carrega as faixas mock por padrão
     window.onload = () => previewFaixas();
   </script>
 </body>
-</html> 
+</html>

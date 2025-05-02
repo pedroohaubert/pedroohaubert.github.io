@@ -161,7 +161,7 @@ let criarArtistas2 =(data)=>{
         
         // Estrutura HTML atualizada para alinhar texto
         return`
-        <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+        <div class="items mx-auto">
           <img src="${x.images[0]?.url || 'https://via.placeholder.com/150?text=Artista'}" alt="${x.name}">
           <span class="numero">${y}</span>
           <div class="item-text">
@@ -205,7 +205,7 @@ let criarFaixas2 =(data)=>{
         
         // Estrutura HTML atualizada
         return`
-        <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+        <div class="items mx-auto">
           <img src="${x.album.images[0]?.url || 'https://via.placeholder.com/150?text=Faixa'}" alt="${x.name}">
           <span class="numero">${y}</span>
           <div class="item-text">
@@ -258,7 +258,7 @@ let criarRecomendacoes2 =(data)=>{
       
       // Estrutura HTML atualizada
       return`
-      <div class="items w-full max-w-full sm:max-w-[500px] mx-auto">
+      <div class="items mx-auto">
         <img src="${x.album.images[0]?.url || 'https://via.placeholder.com/150?text=Recom'}" alt="${x.name}">
         <span class="numero">${y}</span>
         <div class="item-text">
