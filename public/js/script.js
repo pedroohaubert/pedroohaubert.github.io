@@ -130,13 +130,11 @@ let criarArtistas2 =(data)=>{
 
     let botaoFaixas = document.getElementById("botaoFaixas")
     let botaoArtistas = document.getElementById("botaoArtistas")
-    let botaoRecomendacoes = document.getElementById("botaoRecomendacoes")
     let menus = document.getElementById("menus")
 
     // Remove a classe 'ativo' de todos e adiciona ao botão clicado
     botaoFaixas.classList.remove('ativo');
     botaoArtistas.classList.add('ativo');
-    botaoRecomendacoes.classList.remove('ativo');
 
     listaArtistas = []
     y = 0
@@ -150,7 +148,7 @@ let criarArtistas2 =(data)=>{
     console.log(data);
     
     // Adiciona os itens abaixo do título
-    box.innerHTML += data.items.map((x)=>{
+    box.insertAdjacentHTML('beforeend', data.items.map((x)=>{
         listaArtistas[y] = x.id;
         y++;
         
@@ -169,7 +167,7 @@ let criarArtistas2 =(data)=>{
             <p class="artist-name">${genres}</p>
           </div>
         </div>`
-    }).join("");
+    }).join(""))
     
     return;
 }
@@ -177,13 +175,11 @@ let criarArtistas2 =(data)=>{
 let criarFaixas2 =(data)=>{
     let botaoFaixas = document.getElementById("botaoFaixas")
     let botaoArtistas = document.getElementById("botaoArtistas")
-    let botaoRecomendacoes = document.getElementById("botaoRecomendacoes")
     let menus = document.getElementById("menus")
 
     // Remove a classe 'ativo' de todos e adiciona ao botão clicado
     botaoFaixas.classList.add('ativo');
     botaoArtistas.classList.remove('ativo');
-    botaoRecomendacoes.classList.remove('ativo');
     
     listaFaixas = []
     y = 0
@@ -197,7 +193,7 @@ let criarFaixas2 =(data)=>{
     console.log(data);
     
     // Adiciona os itens abaixo do título
-    box.innerHTML += data.items.map((x)=>{
+    box.insertAdjacentHTML('beforeend', data.items.map((x)=>{
         listaFaixas[y] = x.id;
         y++;
         // Extrai o nome do artista
@@ -213,7 +209,7 @@ let criarFaixas2 =(data)=>{
             <p class="artist-name">${artistName}</p>
           </div>
         </div>`
-    }).join("");
+    }).join(""))
     
     return;
 }
